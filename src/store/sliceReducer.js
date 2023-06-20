@@ -1,6 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { initialState } from './initialstate';
 import { addContact, deleteContact, fetchContacts } from './operations';
+
+const funcList = [fetchContacts, addContact, deleteContact];
+const funcUpdate = (status)=> funcList.map(item=>item[status])
 
 const handlePending = state => {
   state.contacts.isLoading = true;
@@ -46,15 +49,11 @@ export const sliceReducer = createSlice({
 
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, handleFulfilled)
-      .addCase(fetchContacts.rejected, handleRejected)
-      .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, handleAddContactFulfilled)
-      .addCase(addContact.rejected, handleRejected)
-      .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, handledeleteContactFulfilled)
-      .addCase(deleteContact.rejected, handleRejected);
+      .addMatcher(isAnyOf(...funcUpdate('pending')), handlePending)
+      .addMatcher(isAnyOf(...funcUpdate('rejected')), handleRejected)
   },
 });
 

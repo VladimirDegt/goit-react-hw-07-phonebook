@@ -2,7 +2,18 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, fetchContacts } from 'store/operations';
 import { contactsState, filterState } from 'store/selectors';
-import { StyledSection, StyledList, StyledItemList } from './Contacts.styled';
+import {
+  StyledSection,
+  StyledContainerTable,
+  StyledFirstRowHead,
+  StyledSecondRowHead,
+  StyledThirdRowHead,
+  StyledFirstRow,
+  StyledSecondRow,
+  StyledThirdRow,
+  StyledChangeBtn,
+} from './Contacts.styled';
+import IconDelete from 'utils/delete-svg';
 
 function Contacts() {
   const dispatch = useDispatch();
@@ -17,43 +28,55 @@ function Contacts() {
 
   return (
     <StyledSection>
-      <h2>Contacts</h2>
       {isLoading && <p>Loading contacts...</p>}
       {error && (
         <p>Упс, что-то пошло не так. Попробуйте перезагрузить страницу</p>
       )}
-      <StyledList>
-        {items.length !== 0 &&
-          filteredList === '' &&
-          items.map(item => {
-            return (
-              <StyledItemList key={item.id}>
-                <span>{item.name}: </span>
-                <a href={`tel:+38${item.number}`}>{item.number}</a>
-                <button type="button" onClick={() => onDeleteContact(item.id)}>
-                  {' '}
-                  delete
-                </button>
-              </StyledItemList>
-            );
-          })}
-      </StyledList>
+      <StyledContainerTable>
+        <thead>
+          <tr>
+            <StyledFirstRowHead>Name</StyledFirstRowHead>
+            <StyledSecondRowHead>Phone</StyledSecondRowHead>
+            <StyledThirdRowHead>Date</StyledThirdRowHead>
+          </tr>
+        </thead>
+        <tbody>
+          {items.length !== 0 &&
+            filteredList === '' &&
+            items.map(item => (
+              <tr key={item.id}>
+                <StyledFirstRow>{item.name}</StyledFirstRow>
+                <StyledSecondRow>{item.number}</StyledSecondRow>
+                <StyledThirdRow>{item.createdAt}</StyledThirdRow>
+                <td>
+                  <StyledChangeBtn
+                    type="button"
+                    onClick={() => onDeleteContact(item.id)}
+                  >
+                    <IconDelete />
+                  </StyledChangeBtn>
+                </td>
+              </tr>
+            ))}
 
-      <StyledList>
-        {filteredList.length > 0 &&
-          filteredList.map(item => {
-            return (
-              <StyledItemList key={item.id}>
-                <span>{item.name}: </span>
-                <a href={`tel:+38${item.number}`}>{item.number}</a>
-                <button type="button" onClick={() => onDeleteContact(item.id)}>
-                  {' '}
-                  delete
-                </button>
-              </StyledItemList>
-            );
-          })}
-      </StyledList>
+          {filteredList.length > 0 &&
+            filteredList.map(item => (
+              <tr key={item.id}>
+                <StyledFirstRow>{item.name}</StyledFirstRow>
+                <StyledSecondRow>{item.number}</StyledSecondRow>
+                <StyledThirdRow>{item.createdAt}</StyledThirdRow>
+                <td>
+                  <StyledChangeBtn
+                    type="button"
+                    onClick={() => onDeleteContact(item.id)}
+                  >
+                    <IconDelete />
+                  </StyledChangeBtn>
+                </td>
+              </tr>
+            ))}    
+        </tbody>
+      </StyledContainerTable>
     </StyledSection>
   );
 }

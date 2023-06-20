@@ -7,6 +7,7 @@ import {
 } from './AddContactsForm.styled';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'store/operations';
+import { currentDate } from 'utils/currentDate';
 
 const inputNameId = nanoid();
 const inputNumberId = nanoid();
@@ -34,7 +35,7 @@ function AddContactsForm() {
 
     dispatch(
       addContact({
-        createdAt: new Date(),
+        createdAt: currentDate(),
         name,
         number,
       })

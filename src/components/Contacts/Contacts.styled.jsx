@@ -4,34 +4,70 @@ import { displayFlex } from 'utils/display-flex';
 export const StyledSection = styled.section`
   ${displayFlex}
   gap: 5px;
-`
-export const StyledList = styled.ul`
-  ${displayFlex}
-  justify-content: space-between;
-  gap: 10px;
+`;
+
+export const StyledContainerTable = styled.table`
+  display: flex;
+  flex-direction: column;
   padding: 0;
-`
-export const StyledItemList = styled.li`
-  list-style-type: none; 
-  font-size: 20px;
+  margin: 10px auto;
+  border-collapse: collapse;
 
-  span {
-    margin-right: 10px;
+  thead th {
+    text-align: center;
   }
 
-  button {
-    background-color: grey;
-    cursor: pointer;
-    border-radius: 4px;
-    border: none;
-    color: white;
-    font-size: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-    :hover {
-      background-color: blue;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
+  th,
+  td {
+    border: 1px solid #2e2f42;
+    padding: 8px;
   }
-`
+`;
+
+export const StyledFirstRowHead = styled.th`
+  width: 300px;
+`;
+export const StyledSecondRowHead = styled.th`
+  width: 200px;
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+export const StyledThirdRowHead = styled.th`
+  width: 200px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+export const StyledFirstRow = styled.td`
+  width: 300px;
+  font-size: 16px;
+  weight: 500;
+  color: #0000ff;
+  cursor: pointer;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  :hover,
+  :focus {
+    color: #6699ff;
+  }
+`;
+export const StyledSecondRow = styled.td`
+  width: 200px;
+  text-align: center;
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+export const StyledThirdRow = styled.td`
+  width: 200px;
+  text-align: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+export const StyledChangeBtn = styled.button`
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+`;
