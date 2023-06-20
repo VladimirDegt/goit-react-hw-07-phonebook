@@ -6,7 +6,7 @@ import {
   StyledButton,
 } from './AddContactsForm.styled';
 import { useDispatch } from 'react-redux';
-import { addContactsThunk } from 'store/sliceReducer';
+import { addContactsThunk } from 'store/operations';
 
 const inputNameId = nanoid();
 const inputNumberId = nanoid();
