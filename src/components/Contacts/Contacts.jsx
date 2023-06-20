@@ -10,7 +10,7 @@ function Contacts(){
   // const initialContacts = useSelector(initial);
   // const filteredContacts = useSelector(filtered);
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsState)
+  const {items, isLoading, error} = useSelector(contactsState);
 
   // const onDeleteContact = (id) => dispatch(deleteContact(id));
 
@@ -21,8 +21,10 @@ function Contacts(){
   return (
     <StyledSection>
       <h2>Contacts</h2>
+      {isLoading && <p>Loading contacts...</p>}
+      {error && <p>Упс, что-то пошло не так. Попробуйте перезагрузить страницу</p>}
       <StyledList> 
-      {contacts.length !== 0 && contacts.map((item)=>{
+      {items.length !== 0 && items.map((item)=>{
         return <StyledItemList key={item.id}>
           <span>{item.name}: </span>
           <a href={`tel:+38${item.number}`}>{item.number}</a>

@@ -7,3 +7,9 @@ export async function fetchAllContacts() {
   
   return result.data;
 };
+
+export async function addNewContacts(newContact) {
+  const result = await axios.post(`/contacts`, newContact);
+  
+  return result.data;
+};
