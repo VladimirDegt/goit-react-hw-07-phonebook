@@ -6,7 +6,7 @@ import {
   StyledButton,
 } from './AddContactsForm.styled';
 import { useDispatch } from 'react-redux';
-import { addContactsThunk } from 'store/operations';
+import { addContact } from 'store/operations';
 
 const inputNameId = nanoid();
 const inputNumberId = nanoid();
@@ -32,7 +32,7 @@ function AddContactsForm() {
   function handleFormSubmit(e) {
     e.preventDefault();
 
-    dispatch(addContactsThunk({
+    dispatch(addContact({
         createdAt: new Date(),
         name,
         number,

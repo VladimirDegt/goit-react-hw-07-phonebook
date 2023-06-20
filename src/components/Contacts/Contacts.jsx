@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContactsThunk, getContactsThunk } from "store/operations";
+import { deleteContact, fetchContacts } from "store/operations";
 import { contactsState } from "store/selectors";
 import { StyledSection, StyledList, StyledItemList } from './Contacts.styled';
 
@@ -8,10 +8,10 @@ function Contacts(){
   const dispatch = useDispatch();
   const {items, isLoading, error} = useSelector(contactsState);
 
-  const onDeleteContact = (id) => dispatch(deleteContactsThunk(id));
+  const onDeleteContact = (id) => dispatch(deleteContact(id));
 
   useEffect(()=>{
-    dispatch(getContactsThunk())
+    dispatch(fetchContacts())
   }, [dispatch])
 
   return (

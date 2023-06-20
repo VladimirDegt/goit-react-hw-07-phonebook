@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addNewContacts, fetchAllContacts, deleteContacts } from "utils/api-mockapi";
 
-export const getContactsThunk = createAsyncThunk('contacts/getContacts', async(arg, thunkAPI)=>{
+export const fetchContacts = createAsyncThunk('contacts/fetchAll', async(arg, thunkAPI)=>{
   try {
     return await fetchAllContacts();
   } catch (error) {
@@ -10,7 +10,7 @@ export const getContactsThunk = createAsyncThunk('contacts/getContacts', async(a
   }
 });
 
-export const addContactsThunk = createAsyncThunk('contacts/addContacts', async(newContact, thunkAPI)=>{
+export const addContact = createAsyncThunk('contacts/addContact', async(newContact, thunkAPI)=>{
   try {
     return await addNewContacts(newContact);
   } catch (error) {
@@ -19,7 +19,7 @@ export const addContactsThunk = createAsyncThunk('contacts/addContacts', async(n
   }
 });
 
-export const deleteContactsThunk = createAsyncThunk('contacts/deleteContacts', async(id, thunkAPI)=>{
+export const deleteContact = createAsyncThunk('contacts/deleteContact', async(id, thunkAPI)=>{
   try {
     return await deleteContacts(id);
   } catch (error) {
