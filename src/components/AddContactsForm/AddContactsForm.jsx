@@ -32,11 +32,13 @@ function AddContactsForm() {
   function handleFormSubmit(e) {
     e.preventDefault();
 
-    dispatch(addContact({
+    dispatch(
+      addContact({
         createdAt: new Date(),
         name,
         number,
-    }))
+      })
+    );
     setName('');
     setNumber('');
   }

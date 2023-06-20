@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialstate';
 import { addContact, deleteContact, fetchContacts } from './operations';
 
-const handlePending = (state)=>{state.contacts.isLoading = true};
+const handlePending = state => {
+  state.contacts.isLoading = true;
+};
 
 const handleFulfilled = (state, { payload }) => {
   state.contacts.isLoading = false;
@@ -19,10 +21,12 @@ const handleAddContactFulfilled = (state, { payload }) => {
 const handledeleteContactFulfilled = (state, { payload }) => {
   state.contacts.isLoading = false;
   state.contacts.error = null;
-  state.contacts.items = state.contacts.items.filter(item=>item.id !== payload.id);
+  state.contacts.items = state.contacts.items.filter(
+    item => item.id !== payload.id
+  );
 };
 
-const handleRejected = (state, {payload})=> {
+const handleRejected = (state, { payload }) => {
   state.contacts.isLoading = false;
   state.contacts.error = payload;
 };
@@ -31,7 +35,16 @@ export const sliceReducer = createSlice({
   name: 'phonebook',
   initialState: initialState,
 
-  extraReducers: (builder) => {
+  reducers: {
+    filterContact: (state, { payload }) => {
+      return {
+        ...state,
+        filter: payload,
+      };
+    },
+  },
+
+  extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, handleFulfilled)
@@ -41,9 +54,9 @@ export const sliceReducer = createSlice({
       .addCase(addContact.rejected, handleRejected)
       .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, handledeleteContactFulfilled)
-      .addCase(deleteContact.rejected, handleRejected)
-  }
+      .addCase(deleteContact.rejected, handleRejected);
+  },
 });
 
 export const contactsReducer = sliceReducer.reducer;
-
+export const { filterContact } = sliceReducer.actions;
