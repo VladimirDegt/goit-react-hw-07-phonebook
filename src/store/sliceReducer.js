@@ -1,41 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialstate';
 import { fetchAllContacts } from 'utils/api-mockapi';
 
-export const getContactsThunk = () => {
-  return async (dispatch) => {
-    try {
-      dispatch(sliceReducer.actions.fetching())
-      const data = await fetchAllContacts();
-      dispatch(sliceReducer.actions.fetchSuccess(data))
-    } catch (error) {
-      dispatch(sliceReducer.actions.fetchError(error))
-    }
-  }
-}
+export const getContactsThunk = createAsyncThunk('contacts/getContacts', async()=>{
+  return await fetchAllContacts()
+})
+
+const handlePending = (state)=>{state.contacts.isLoading = true};
+
+const handleFulfilled = (state, { payload }) => {
+  state.contacts.isLoading = false;
+  state.contacts.error = null;
+  state.contacts.items = payload;
+};
+
+const handleRejected = (state, {payload})=> {
+  state.contacts.isLoading = false;
+  state.contacts.error = payload;
+};
 
 export const sliceReducer = createSlice({
   name: 'phonebook',
   initialState: initialState,
-  reducers: {
-    fetching: state => {
-      state.contacts.isLoading = true;
-    },
-    fetchSuccess: (state, { payload }) => {
-      state.contacts.isLoading = false;
-      state.contacts.error = null;
-      state.contacts.items = payload;
-    },
-    fetchError: (state, {payload})=> {
-      state.contacts.isLoading = false;
-      state.contacts.error = payload;
-    },
-    addContact: (state, {payload}) => {
-      state.contacts.items.push(payload);
-    }
-  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getContactsThunk.pending, handlePending)
+      .addCase(getContactsThunk.fulfilled, handleFulfilled)
+      .addCase(getContactsThunk.rejected, handleRejected)
+  }
 });
 
 export const reducer = sliceReducer.reducer;
-export const { fetching, fetchSuccess, fetchError, addContact } =
-  sliceReducer.actions;
+
