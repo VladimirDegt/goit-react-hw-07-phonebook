@@ -5,17 +5,14 @@ import {
   deleteContacts,
 } from 'utils/api-mockapi';
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (_, thunkAPI) => {
-    try {
-      return await fetchAllContacts();
-    } catch (error) {
-      console.log(error.message);
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const fetchContacts = createAsyncThunk('contacts/fetchAll', async(_, thunkAPI)=>{
+  try {
+    return await fetchAllContacts();
+  } catch (error) {
+    console.log(error.message);
+    return thunkAPI.rejectWithValue(error.message)
   }
-);
+});
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',

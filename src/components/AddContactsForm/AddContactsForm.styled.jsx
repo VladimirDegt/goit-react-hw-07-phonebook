@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Form } from 'formik';
 import { displayFlex } from 'utils/display-flex';
 
 export const StyledSection = styled.section`
@@ -6,7 +7,7 @@ export const StyledSection = styled.section`
   gap: 10px;
 `
 
-export const StyledForm = styled.form`
+export const StyledForm = styled(Form)`
   ${displayFlex}
   gap: 5px;
 `
@@ -26,3 +27,8 @@ export const StyledButton = styled.button`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 `
+export const StyledErrorContainer = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+`;

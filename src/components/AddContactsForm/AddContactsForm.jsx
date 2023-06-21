@@ -1,77 +1,62 @@
-import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import {
   StyledSection,
   StyledForm,
   StyledButton,
+  StyledErrorContainer
 } from './AddContactsForm.styled';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'store/operations';
 import { currentDate } from 'utils/currentDate';
 
-const inputNameId = nanoid();
-const inputNumberId = nanoid();
-
 function AddContactsForm() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-
-  function handleInputChange({ target }) {
-    switch (target.name) {
-      case 'name':
-        setName(target.value);
-        break;
-      case 'number':
-        setNumber(target.value);
-        break;
-      default:
-        return;
-    }
-  }
-
-  function handleFormSubmit(e) {
-    e.preventDefault();
-
-    dispatch(
-      addContact({
-        createdAt: currentDate(),
-        name,
-        number,
-      })
-    );
-    setName('');
-    setNumber('');
-  }
 
   return (
     <StyledSection>
-      <h1>Phonebook</h1>
-      <StyledForm onSubmit={handleFormSubmit}>
-        <label htmlFor={inputNameId}>Name</label>
-        <input
-          id={inputNameId}
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          onChange={handleInputChange}
-          value={name}
+    <h1>Phonebook</h1>
+    <Formik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      onSubmit = {(values, { resetForm })=>{
+        dispatch(addContact({...values, createdAt: currentDate()}));
+        resetForm();
+      }}
+      validationSchema={ Yup.object({
+        name: Yup.string()
+          .max(15, 'Must be 15 characters or less')
+          .trim()
+          .required('Потрібно заповнити поле'),
+        number: Yup.string()
+          .matches(/^\d+$/, 'Must contain only digits')
+          .max(10, 'Must be 10 characters or less')
+          .required('Потрібно заповнити поле'),
+      })}
+    >
+      <StyledForm>
+        <label htmlFor="name">Name</label>
+        <Field 
+          id="name" 
+          name="name" 
+          placeholder="Jane"
+          type="text" 
         />
-        <label htmlFor={inputNumberId}>Number</label>
-        <input
-          id={inputNumberId}
-          type="tel"
+        <ErrorMessage name="name" component={StyledErrorContainer} />
+
+        <label htmlFor="number">Phone</label>
+        <Field
+          id="number"
           name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          onChange={handleInputChange}
-          value={number}
+          placeholder="1112223334"
+          type="tel"
         />
+        <ErrorMessage name="number" component={StyledErrorContainer} />
         <StyledButton type="submit">Add contacts</StyledButton>
       </StyledForm>
+    </Formik>
     </StyledSection>
   );
 }
