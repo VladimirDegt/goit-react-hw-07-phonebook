@@ -6,13 +6,10 @@ import { StyledForm } from './Filter.styled';
 
 function Filter() {
   const dispatch = useDispatch();
-  const {items} = useSelector(contactsState);
+  const { items } = useSelector(contactsState);
 
   return (
-    <Formik
-      initialValues={{ vidibleContacts: '' }}
-      onSubmit={(values) => { }}
-    >
+    <Formik initialValues={{ vidibleContacts: '' }} >
       {({ values, setFieldValue }) => (
         <StyledForm>
           <label htmlFor="findcontact">Find contacts by name</label>
@@ -22,7 +19,8 @@ function Filter() {
             type="text"
             onChange={({ target }) => {
               const filteredContacts = items.filter(item =>
-                item.name.toLowerCase().includes(target.value.toLowerCase()));
+                item.name.toLowerCase().includes(target.value.toLowerCase())
+              );
               dispatch(filterContact(filteredContacts));
               setFieldValue('vidibleContacts', target.value);
             }}
@@ -32,21 +30,21 @@ function Filter() {
       )}
     </Formik>
   );
-};
+}
 
 export default Filter;
 
-  // useEffect(() => {
-  //   if (!inputValue) {
-  //     dispatch(filterContact(''));
-  //   } else {
-  //     const filteredContacts = contacts.items.filter(item =>
-  //       item.name.toLowerCase().includes(inputValue.toLowerCase())
-  //     );
-  //     dispatch(filterContact(filteredContacts));
-  //   }
-  // }, [contacts, dispatch, inputValue]);
+// useEffect(() => {
+//   if (!inputValue) {
+//     dispatch(filterContact(''));
+//   } else {
+//     const filteredContacts = contacts.items.filter(item =>
+//       item.name.toLowerCase().includes(inputValue.toLowerCase())
+//     );
+//     dispatch(filterContact(filteredContacts));
+//   }
+// }, [contacts, dispatch, inputValue]);
 
-  // function handleInputChange({ target }) {
-  //   setInputValue(target.value);
-  // }
+// function handleInputChange({ target }) {
+//   setInputValue(target.value);
+// }

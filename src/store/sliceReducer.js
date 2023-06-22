@@ -1,15 +1,21 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { contactsInitialState, initialState } from './initialstate';
+import { contactsInitialState } from './initialstate';
 import { fetchContacts, addContact, deleteContact } from './operations';
-import { handleFulfilled, handlePending, handleRejected, handleAddContactFulfilled, handledeleteContactFulfilled } from './handleFunctions';
+import {
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+  handleAddContactFulfilled,
+  handledeleteContactFulfilled,
+} from './handleFunctions';
 
 const STATUS = {
   pending: 'pending',
-  rejected: 'rejected'
+  rejected: 'rejected',
 };
-const {pending, rejected} = STATUS;
+const { pending, rejected } = STATUS;
 const funcList = [fetchContacts, addContact, deleteContact];
-const funcUpdate = (status)=> funcList.map(item=>item[status]);
+const funcUpdate = status => funcList.map(item => item[status]);
 
 export const sliceReducer = createSlice({
   name: 'phonebook',
@@ -21,7 +27,7 @@ export const sliceReducer = createSlice({
       .addCase(addContact.fulfilled, handleAddContactFulfilled)
       .addCase(deleteContact.fulfilled, handledeleteContactFulfilled)
       .addMatcher(isAnyOf(...funcUpdate(pending)), handlePending)
-      .addMatcher(isAnyOf(...funcUpdate(rejected)), handleRejected)
+      .addMatcher(isAnyOf(...funcUpdate(rejected)), handleRejected);
   },
 });
 

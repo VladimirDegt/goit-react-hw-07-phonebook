@@ -19,7 +19,6 @@ function Contacts() {
   const dispatch = useDispatch();
   const { items, isLoading, error } = useSelector(contactsState);
   const { filter } = useSelector(filterState);
-
   const onDeleteContact = id => dispatch(deleteContact(id));
 
   useEffect(() => {
@@ -30,7 +29,7 @@ function Contacts() {
     <StyledSection>
       {isLoading && <p>Loading contacts...</p>}
       {error && (
-        <p>Упс, что-то пошло не так. Попробуйте перезагрузить страницу</p>
+        <p>Упс, щось пішло не так. Спробуйте перезавантажити сторінку</p>
       )}
       <StyledContainerTable>
         <thead>
@@ -74,7 +73,7 @@ function Contacts() {
                   </StyledChangeBtn>
                 </td>
               </tr>
-            ))}    
+            ))}
         </tbody>
       </StyledContainerTable>
     </StyledSection>

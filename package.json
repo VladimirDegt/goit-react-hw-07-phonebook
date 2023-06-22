@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://VladimirDegt.github.io/goit-react-hw-07-phonebook/",
   "dependencies": {
+    "@emotion/css": "^11.11.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
