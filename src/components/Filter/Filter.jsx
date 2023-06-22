@@ -1,7 +1,7 @@
 import { Formik, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { contactsState } from 'store/selectors';
-import { filterContact } from 'store/sliceReducer';
+import { filterContact } from 'store/filterReducer';
 import { StyledForm } from './Filter.styled';
 
 function Filter() {

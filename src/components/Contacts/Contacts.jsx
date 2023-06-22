@@ -13,7 +13,7 @@ import {
   StyledThirdRow,
   StyledChangeBtn,
 } from './Contacts.styled';
-import IconDelete from 'utils/delete-svg';
+import IconDeleteBin5Fill from 'utils/delete-icon';
 
 function Contacts() {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ function Contacts() {
                     type="button"
                     onClick={() => onDeleteContact(item.id)}
                   >
-                    <IconDelete />
+                    <IconDeleteBin5Fill />
                   </StyledChangeBtn>
                 </td>
               </tr>
@@ -70,7 +70,7 @@ function Contacts() {
                     type="button"
                     onClick={() => onDeleteContact(item.id)}
                   >
-                    <IconDelete />
+                    <IconDeleteBin5Fill />
                   </StyledChangeBtn>
                 </td>
               </tr>
