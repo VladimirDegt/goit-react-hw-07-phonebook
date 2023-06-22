@@ -18,7 +18,7 @@ import IconDelete from 'utils/delete-svg';
 function Contacts() {
   const dispatch = useDispatch();
   const { items, isLoading, error } = useSelector(contactsState);
-  const filteredList = useSelector(filterState);
+  const { filter } = useSelector(filterState);
 
   const onDeleteContact = id => dispatch(deleteContact(id));
 
@@ -42,7 +42,7 @@ function Contacts() {
         </thead>
         <tbody>
           {items.length !== 0 &&
-            filteredList === '' &&
+            filter === '' &&
             items.map(item => (
               <tr key={item.id}>
                 <StyledFirstRow>{item.name}</StyledFirstRow>
@@ -59,8 +59,8 @@ function Contacts() {
               </tr>
             ))}
 
-          {filteredList.length > 0 &&
-            filteredList.map(item => (
+          {filter.length > 0 &&
+            filter.map(item => (
               <tr key={item.id}>
                 <StyledFirstRow>{item.name}</StyledFirstRow>
                 <StyledSecondRow>{item.number}</StyledSecondRow>

@@ -1,8 +1,9 @@
-export const initialState = {
-  contacts: {
+export const contactsInitialState = {
     items: [],
     isLoading: false,
     error: null,
-  },
-  filter: '',
 };
+
+export const filtersInitialState = {
+    filter: '',
+}

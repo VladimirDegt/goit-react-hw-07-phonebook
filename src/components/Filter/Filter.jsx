@@ -1,13 +1,12 @@
 import { Formik, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { contactsState } from 'store/selectors';
-// import { filterContact } from "store/filterReducer";
 import { filterContact } from 'store/sliceReducer';
 import { StyledForm } from './Filter.styled';
 
 function Filter() {
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsState);
+  const {items} = useSelector(contactsState);
 
   return (
     <Formik
@@ -22,7 +21,7 @@ function Filter() {
             name="vidibleContacts"
             type="text"
             onChange={({ target }) => {
-              const filteredContacts = contacts.items.filter(item =>
+              const filteredContacts = items.filter(item =>
                 item.name.toLowerCase().includes(target.value.toLowerCase()));
               dispatch(filterContact(filteredContacts));
               setFieldValue('vidibleContacts', target.value);
