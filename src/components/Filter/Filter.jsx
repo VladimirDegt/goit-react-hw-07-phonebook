@@ -1,15 +1,13 @@
 import { Formik, Field } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
-import { contactsState } from 'store/selectors';
+import { useDispatch } from 'react-redux';
 import { filterContact } from 'store/filterReducer';
 import { StyledForm } from './Filter.styled';
 
 function Filter() {
   const dispatch = useDispatch();
-  const { items } = useSelector(contactsState);
 
   return (
-    <Formik initialValues={{ vidibleContacts: '' }} >
+    <Formik initialValues={{ vidibleContacts: '' }}>
       {({ values, setFieldValue }) => (
         <StyledForm>
           <label htmlFor="findcontact">Find contacts by name</label>
@@ -18,10 +16,7 @@ function Filter() {
             name="vidibleContacts"
             type="text"
             onChange={({ target }) => {
-              const filteredContacts = items.filter(item =>
-                item.name.toLowerCase().includes(target.value.toLowerCase())
-              );
-              dispatch(filterContact(filteredContacts));
+              dispatch(filterContact(target.value));
               setFieldValue('vidibleContacts', target.value);
             }}
             value={values.vidibleContacts}
@@ -33,18 +28,3 @@ function Filter() {
 }
 
 export default Filter;
-
-// useEffect(() => {
-//   if (!inputValue) {
-//     dispatch(filterContact(''));
-//   } else {
-//     const filteredContacts = contacts.items.filter(item =>
-//       item.name.toLowerCase().includes(inputValue.toLowerCase())
-//     );
-//     dispatch(filterContact(filteredContacts));
-//   }
-// }, [contacts, dispatch, inputValue]);
-
-// function handleInputChange({ target }) {
-//   setInputValue(target.value);
-// }

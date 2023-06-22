@@ -21,6 +21,13 @@ function Contacts() {
   const { filter } = useSelector(filterState);
   const onDeleteContact = id => dispatch(deleteContact(id));
 
+  let visibaleContact;
+  filter === ''
+    ? (visibaleContact = items)
+    : (visibaleContact = items.filter(item =>
+        item.name.toLowerCase().includes(filter.toLowerCase())
+      ));
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -40,40 +47,21 @@ function Contacts() {
           </tr>
         </thead>
         <tbody>
-          {items.length !== 0 &&
-            filter === '' &&
-            items.map(item => (
-              <tr key={item.id}>
-                <StyledFirstRow>{item.name}</StyledFirstRow>
-                <StyledSecondRow>{item.number}</StyledSecondRow>
-                <StyledThirdRow>{item.createdAt}</StyledThirdRow>
-                <td>
-                  <StyledChangeBtn
-                    type="button"
-                    onClick={() => onDeleteContact(item.id)}
-                  >
-                    <IconDeleteBin5Fill />
-                  </StyledChangeBtn>
-                </td>
-              </tr>
-            ))}
-
-          {filter.length > 0 &&
-            filter.map(item => (
-              <tr key={item.id}>
-                <StyledFirstRow>{item.name}</StyledFirstRow>
-                <StyledSecondRow>{item.number}</StyledSecondRow>
-                <StyledThirdRow>{item.createdAt}</StyledThirdRow>
-                <td>
-                  <StyledChangeBtn
-                    type="button"
-                    onClick={() => onDeleteContact(item.id)}
-                  >
-                    <IconDeleteBin5Fill />
-                  </StyledChangeBtn>
-                </td>
-              </tr>
-            ))}
+          {visibaleContact.map(item => (
+            <tr key={item.id}>
+              <StyledFirstRow>{item.name}</StyledFirstRow>
+              <StyledSecondRow>{item.number}</StyledSecondRow>
+              <StyledThirdRow>{item.createdAt}</StyledThirdRow>
+              <td>
+                <StyledChangeBtn
+                  type="button"
+                  onClick={() => onDeleteContact(item.id)}
+                >
+                  <IconDeleteBin5Fill />
+                </StyledChangeBtn>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </StyledContainerTable>
     </StyledSection>
