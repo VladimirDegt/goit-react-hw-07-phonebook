@@ -54,7 +54,7 @@ function AddContactsForm() {
           type="tel"
         />
         <ErrorMessage name="number" component={StyledErrorContainer} />
-        <StyledButton type="submit">Add contacts</StyledButton>
+        <StyledButton type="submit">add</StyledButton>
       </StyledForm>
     </Formik>
     </StyledSection>
