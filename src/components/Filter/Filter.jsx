@@ -1,4 +1,5 @@
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
+import {DebounceInput} from 'react-debounce-input';
 import { useDispatch } from 'react-redux';
 import { filterContact } from 'store/filterReducer';
 import { StyledForm } from './Filter.styled';
@@ -11,7 +12,8 @@ function Filter() {
       {({ values, setFieldValue }) => (
         <StyledForm>
           <label htmlFor="findcontact">Find contacts by name</label>
-          <Field
+          <DebounceInput
+            debounceTimeout={300}
             id="findcontact"
             name="vidibleContacts"
             type="text"

@@ -1,26 +1,27 @@
-import { Global, css } from '@emotion/react';
-import AddContactsForm from './AddContactsForm';
-import Contacts from './Contacts';
-import Filter from './Filter';
-import { StyledContainer } from './App.styled';
-// import { GlobalStyles } from 'utils/globalStyles';
+import { RTKQuery } from 'pages/RTKQuery';
+import { Toolkit } from 'pages/Toolkit';
+import { Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+import { StyledLink, StyledNav } from './App.styled';
+
+// const Toolkit = lazy(()=>import('../pages/Toolkit'));
+// const RTKQuery = lazy(()=>import('../pages/RTKQuery'));
 
 export function App() {
   return (
     <>
-      {/* {GlobalStyles()} */}
-      <Global
-        styles={css`
-          body {
-            font-family: 'Roboto';
-          }
-        `}
-      />
-      <StyledContainer>
-        <AddContactsForm />
-        <Filter />
-        <Contacts />
-      </StyledContainer>
+      <StyledNav>
+        <StyledLink to="/">Toolkit</StyledLink>
+        <StyledLink to="/rtk">RTKQuery</StyledLink>
+      </StyledNav>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path='/' element={<Toolkit/>}/>
+          <Route path='/rtk' element={<RTKQuery/>}/>
+          <Route path='*' element={<Toolkit/>}/>
+        </Routes>
+      </Suspense>
     </>
   );
-}
+};
+
