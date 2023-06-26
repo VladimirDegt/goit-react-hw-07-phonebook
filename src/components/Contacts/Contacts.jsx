@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, fetchContacts } from 'store/operations';
-import { contactsState, filterState } from 'store/selectors';
+import { selectContactsState, selectFilterState } from 'store/selectors';
 import {
   StyledSection,
   StyledContainerTable,
@@ -17,8 +17,8 @@ import IconDeleteBin5Fill from 'utils/delete-icon';
 
 function Contacts() {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(contactsState);
-  const { filter } = useSelector(filterState);
+  const { items, isLoading, error } = useSelector(selectContactsState);
+  const { filter } = useSelector(selectFilterState);
   const onDeleteContact = id => dispatch(deleteContact(id));
 
   let visibaleContact;
