@@ -7,3 +7,4 @@ export const selectFilterState = state => state.filters;
 
 //   return items.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
 // };
+
